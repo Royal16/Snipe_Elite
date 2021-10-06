@@ -10,11 +10,9 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 public class UniverseKeyboardHandler implements KeyboardHandler {
 
     private Rectangle rectangle;
-    private Rectangle slide;
 
-    public UniverseKeyboardHandler(Rectangle rectangle, Rectangle slide){
+    public UniverseKeyboardHandler(Rectangle rectangle){
         this.rectangle = rectangle;
-        this.slide = slide;
 
         //keyboard is deaf
         Keyboard keyboard = new Keyboard(this);
@@ -28,54 +26,27 @@ public class UniverseKeyboardHandler implements KeyboardHandler {
         right.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         right.setKey(KeyboardEvent.KEY_RIGHT);
 
-        KeyboardEvent up = new KeyboardEvent();
-        up.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        up.setKey(KeyboardEvent.KEY_UP);
-
-        KeyboardEvent down = new KeyboardEvent();
-        down.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        down.setKey(KeyboardEvent.KEY_DOWN);
-
         //keyboard listen to left
         keyboard.addEventListener(left);
         keyboard.addEventListener(right);
-        keyboard.addEventListener(up);
-        keyboard.addEventListener(down);
     }
 
     @Override
     public void keyPressed(KeyboardEvent e) {
+        System.out.println("chieeeeeeeyyyyyyyy");
+
+        if(e.getKey() == KeyboardEvent.KEY_LEFT){
+            rectangle.translate(-100, 0);
+        }
         switch(e.getKey()){
             case KeyboardEvent.KEY_LEFT:
-                if(rectangle.getX() - 50 < 0){
-                    rectangle.translate(0, 0);
-                }else{
-                    rectangle.translate(-50, 0);
-                }
+                rectangle.translate(-100, 0);
                 break;
             case KeyboardEvent.KEY_RIGHT:
-                if((rectangle.getX() + 50) < (slide.getX())) {
-                    rectangle.translate(50, 0);
-                }else{
-                    rectangle.translate(0, 0);
-                }
-                break;
-            case KeyboardEvent.KEY_UP:
-                System.out.println(rectangle.getHeight());
-                if(rectangle.getY() - 50 < 0){
-                    rectangle.translate(0, 0);
-                }else {
-                    rectangle.translate(0, -50);
-                }
-                break;
-            case KeyboardEvent.KEY_DOWN:
-                if((rectangle.getY() + 50) < (slide.getY())) {
-                    rectangle.translate(0, 50);
-                }else{
-                    rectangle.translate(0, 0);
-                }
+                rectangle.translate(100, 0);
                 break;
         }
+
     }
 
     @Override
